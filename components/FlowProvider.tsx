@@ -11,21 +11,19 @@ interface FlowContextValue {
 }
 
 const FlowContext = createContext<FlowContextValue>({
-  scenario: 'pro',
+  scenario: 'full',
   setScenario: () => {},
   reset: () => {},
 });
 
 export function FlowProvider({ children }: { children: ReactNode }) {
-  const [scenario, setScenarioState] = useState<Scenario>('pro');
+  const [scenario, setScenarioState] = useState<Scenario>('full');
   const router = useRouter();
 
-  const setScenario = useCallback((s: Scenario) => {
-    setScenarioState(s);
-  }, []);
+  const setScenario = useCallback((s: Scenario) => setScenarioState(s), []);
 
   const reset = useCallback(() => {
-    setScenarioState('pro');
+    setScenarioState('full');
     router.push('/');
   }, [router]);
 

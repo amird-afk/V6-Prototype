@@ -2,48 +2,49 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import Shell from '@/components/Shell';
-import { Button } from '@/components/ui/button';
-import { useFlow } from '@/components/FlowProvider';
-import { nextFromProgramSelection } from '@/lib/flow';
+import { nextFromProgram } from '@/lib/flow';
 import type { Track } from '@/lib/flow';
 
 export default function ProgramSelection() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { scenario } = useFlow();
   const track = (searchParams.get('track') ?? 'scholarship') as Track;
 
   function handleContinue() {
-    const next = nextFromProgramSelection(track);
-    if (next.modal) {
-      router.push(`/program-selection?track=${track}&modal=${next.modal}`);
-    } else {
-      router.push(next.href);
-    }
+    router.push(nextFromProgram(track));
   }
 
   return (
     <Shell track={track}>
-      <h1 className="text-2xl font-bold mb-2" style={{ color: '#F5F5F7' }}>
-        Choose program &amp; term
+      <h1 className="text-2xl font-bold mb-6" style={{ color: '#F5F5F7' }}>
+        Choose your program
       </h1>
-      <p className="mb-8 text-sm" style={{ color: '#A1A1AA' }}>
-        Select the program and start date that works best for you.
-      </p>
-      <Button
-        className="w-full font-semibold text-base py-6"
-        style={{ background: '#D7FF3A', color: '#0B0B0C' }}
-        onClick={handleContinue}
-      >
+
+      <div className="space-y-2 mb-6">
+        {['Computer Science (BS)', 'Business Administration (BS)', 'Data Analytics (AAS)'].map(
+          (prog, i) => (
+            <div key={prog} className="rounded-xl px-4 py-3 flex items-center justify-between"
+              style={{
+                background: i === 0 ? '#2E3035' : '#13141A',
+                border: `1px solid ${i === 0 ? '#FFFFFF20' : '#2E3035'}`,
+              }}>
+              <span className="text-sm font-medium" style={{ color: '#F5F5F7' }}>{prog}</span>
+              {i === 0 && (
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                  style={{ background: '#D7FF3A', color: '#13141A' }}>Selected</span>
+              )}
+            </div>
+          )
+        )}
+      </div>
+
+      <button className="w-full rounded-full py-4 font-semibold text-sm"
+        style={{ background: '#FFFFFF', color: '#13141A' }}
+        onClick={handleContinue}>
         Continue
-      </Button>
-      <button
-        className="mt-4 w-full text-sm"
-        style={{ color: '#A1A1AA' }}
-        onClick={() => router.back()}
-      >
-        ← Back
       </button>
+      <button className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}
+        onClick={() => router.back()}>← Back</button>
     </Shell>
   );
 }

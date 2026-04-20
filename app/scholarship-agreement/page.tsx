@@ -2,52 +2,52 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import Shell from '@/components/Shell';
-import { Button } from '@/components/ui/button';
+import { FileText } from 'lucide-react';
 
 export default function ScholarshipAgreement() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tier = searchParams.get('tier') ?? 'pro';
-  const isPro = tier === 'pro';
+
+  const isSelfpay = tier.startsWith('selfpay');
+  const isPartial = tier.startsWith('partial');
+  const label = isSelfpay ? 'Enrollment' : isPartial ? 'Partial Scholarship' : 'Pro Scholarship';
+  const track = isSelfpay ? 'selfpay' : 'scholarship';
 
   return (
-    <Shell track="scholarship">
-      <h1 className="text-2xl font-bold mb-2" style={{ color: '#F5F5F7' }}>
-        {isPro ? 'Pro' : 'Core'} scholarship agreement
-      </h1>
-      <p className="mb-6 text-sm" style={{ color: '#A1A1AA' }}>
-        Review and sign your scholarship agreement to confirm enrollment terms.
-      </p>
-
-      {/* Mock agreement box */}
-      <div
-        className="rounded-lg px-4 py-4 mb-8 text-xs leading-relaxed"
-        style={{ background: '#0B0B0C', border: '1px solid #2A2B30', color: '#A1A1AA' }}
-      >
-        <p className="mb-2 font-semibold" style={{ color: '#F5F5F7' }}>
-          Masterschool {isPro ? 'Pro' : 'Core'} Scholarship Agreement
-        </p>
-        <p>
-          This agreement outlines the terms of your Masterschool scholarship, including ISA
-          repayment conditions, program requirements, and your obligations as a scholarship
-          recipient. [Prototype placeholder — full legal text would appear here.]
-        </p>
+    <Shell track={track}>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+          style={{ background: '#2E3035' }}>
+          <FileText className="w-5 h-5" style={{ color: '#9EA3AE' }} />
+        </div>
+        <h1 className="text-xl font-bold" style={{ color: '#F5F5F7' }}>
+          {label} Agreement
+        </h1>
       </div>
 
-      <Button
-        className="w-full font-semibold text-base py-6"
-        style={{ background: '#D7FF3A', color: '#0B0B0C' }}
-        onClick={() => router.push('/enrollment-documents?track=scholarship')}
-      >
+      {/* Placeholder doc */}
+      <div className="rounded-2xl px-4 py-5 mb-6 space-y-2"
+        style={{ background: '#13141A', border: '1px solid #2E3035' }}>
+        {[100, 85, 95, 70, 80].map((w, i) => (
+          <div key={i} className="h-2 rounded-full" style={{ background: '#2E3035', width: `${w}%` }} />
+        ))}
+        <div className="pt-2 flex items-center gap-2">
+          <div className="w-12 h-12 rounded" style={{ background: '#2E3035' }} />
+          <div className="space-y-1.5 flex-1">
+            <div className="h-2 rounded-full w-3/4" style={{ background: '#2E3035' }} />
+            <div className="h-2 rounded-full w-1/2" style={{ background: '#2E3035' }} />
+          </div>
+        </div>
+      </div>
+
+      <button className="w-full rounded-full py-4 font-semibold text-sm"
+        style={{ background: '#FFFFFF', color: '#13141A' }}
+        onClick={() => router.push(`/enrollment-documents?track=${track}`)}>
         Sign agreement
-      </Button>
-      <button
-        className="mt-4 w-full text-sm"
-        style={{ color: '#A1A1AA' }}
-        onClick={() => router.back()}
-      >
-        ← Back
       </button>
+      <button className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}
+        onClick={() => router.back()}>← Back</button>
     </Shell>
   );
 }

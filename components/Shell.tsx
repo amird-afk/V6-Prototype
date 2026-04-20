@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Card } from '@/components/ui/card';
 import StepBadge from './StepBadge';
 import FlowModal from './FlowModal';
 import DemoBar from './DemoBar';
@@ -19,34 +18,29 @@ export default function Shell({ children, track }: ShellProps) {
   const modalId = searchParams.get('modal');
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#0B0B0C' }}>
-      {/* Top bar */}
-      <header className="flex items-center px-6 py-4">
-        <span className="text-lg font-bold tracking-tight" style={{ color: '#F5F5F7' }}>
-          Master<span style={{ color: '#D7FF3A' }}>school</span>
-        </span>
+    <div className="min-h-screen flex flex-col" style={{ background: '#13141A' }}>
+      <header className="flex items-center px-5 pt-5 pb-2">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded flex items-center justify-center"
+            style={{ background: '#2E3035' }}>
+            <span className="text-[10px] font-black" style={{ color: '#D7FF3A' }}>M</span>
+          </div>
+          <span className="text-base font-bold tracking-tight" style={{ color: '#F5F5F7' }}>
+            maestro
+          </span>
+        </div>
       </header>
 
-      {/* Centered content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-xl">
+      <main className="flex-1 flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-sm">
           <StepBadge pathname={pathname} track={track ?? null} />
-          <Card
-            className="mt-4 p-8 rounded-2xl border"
-            style={{
-              background: '#17181B',
-              borderColor: '#2A2B30',
-            }}
-          >
+          <div className="mt-3 rounded-3xl p-6" style={{ background: '#1E2024' }}>
             {children}
-          </Card>
+          </div>
         </div>
       </main>
 
-      {/* Modals */}
       {modalId && <FlowModal modalId={modalId} />}
-
-      {/* Demo bar */}
       <DemoBar />
     </div>
   );

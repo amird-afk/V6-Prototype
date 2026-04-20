@@ -25,27 +25,37 @@ export default function FlowModal({ modalId }: FlowModalProps) {
   if (!modal) return null;
 
   function handleContinue() {
+    // Strip 'modal' from current params, then append remaining params to continueHref
     const params = new URLSearchParams(searchParams.toString());
     params.delete('modal');
-    const query = params.toString();
-    router.push(modal.continueHref + (query ? `?${query}` : ''));
+    const remaining = params.toString();
+
+    // continueHref may already contain '?' — join with '&' if so
+    const target = modal.continueHref;
+    const separator = target.includes('?') ? '&' : '?';
+    const dest = remaining ? `${target}${separator}${remaining}` : target;
+    router.push(dest);
   }
 
   return (
     <Dialog open onOpenChange={() => handleContinue()}>
       <DialogContent
-        className="max-w-md border"
-        style={{ background: '#17181B', borderColor: '#2A2B30', color: '#F5F5F7' }}
+        className="max-w-sm rounded-2xl border-0 p-6"
+        style={{ background: '#1E2024', color: '#F5F5F7' }}
       >
-        <DialogHeader>
-          <DialogTitle style={{ color: '#F5F5F7' }}>{modal.title}</DialogTitle>
-          <DialogDescription style={{ color: '#A1A1AA' }}>{modal.body}</DialogDescription>
+        <DialogHeader className="gap-2">
+          <DialogTitle className="text-lg font-semibold" style={{ color: '#F5F5F7' }}>
+            {modal.title}
+          </DialogTitle>
+          <DialogDescription className="text-sm leading-relaxed" style={{ color: '#9EA3AE' }}>
+            {modal.body}
+          </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="mt-2">
           <Button
             onClick={handleContinue}
-            className="w-full font-semibold"
-            style={{ background: '#D7FF3A', color: '#0B0B0C' }}
+            className="w-full rounded-full py-5 font-semibold text-sm"
+            style={{ background: '#FFFFFF', color: '#0B0B0C' }}
           >
             Continue
           </Button>

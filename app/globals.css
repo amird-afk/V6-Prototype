@@ -49,26 +49,26 @@
 }
 
 :root {
-  /* Masterschool brand tokens */
-  --background: #0B0B0C;
+  /* Maestro / Masterschool dark theme */
+  --background: #13141A;
   --foreground: #F5F5F7;
-  --card: #17181B;
+  --card: #1E2024;
   --card-foreground: #F5F5F7;
-  --popover: #17181B;
+  --popover: #1E2024;
   --popover-foreground: #F5F5F7;
-  --primary: #D7FF3A;
-  --primary-foreground: #0B0B0C;
-  --secondary: #2A2B30;
+  --primary: #FFFFFF;
+  --primary-foreground: #13141A;
+  --secondary: #2E3035;
   --secondary-foreground: #F5F5F7;
-  --muted: #2A2B30;
-  --muted-foreground: #A1A1AA;
+  --muted: #2E3035;
+  --muted-foreground: #9EA3AE;
   --accent: #D7FF3A;
-  --accent-foreground: #0B0B0C;
+  --accent-foreground: #13141A;
   --destructive: #FF5A4E;
-  --border: #2A2B30;
-  --input: #2A2B30;
-  --ring: #D7FF3A;
-  --radius: 0.75rem;
+  --border: #2E3035;
+  --input: #2E3035;
+  --ring: #FFFFFF;
+  --radius: 1rem;
 }
 
 @layer base {

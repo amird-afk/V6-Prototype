@@ -14,12 +14,10 @@ export default function StepBadge({ pathname, track }: StepBadgeProps) {
   if (!step) return null;
 
   return (
-    <div className="flex items-center gap-2 mb-2">
-      <span
-        className="text-xs font-semibold px-2.5 py-1 rounded-full"
-        style={{ background: '#2A2B30', color: '#A1A1AA' }}
-      >
-        Step {step} of {total} — {trackLabel}
+    <div className="mb-3 flex items-center gap-2">
+      <span className="text-xs px-2.5 py-1 rounded-full font-medium"
+        style={{ background: '#2E3035', color: '#9EA3AE' }}>
+        {step}/{total} · {trackLabel}
       </span>
     </div>
   );

@@ -2,29 +2,41 @@
 
 import { useRouter } from 'next/navigation';
 import Shell from '@/components/Shell';
-import { Button } from '@/components/ui/button';
 
 export default function Signup() {
   const router = useRouter();
 
   return (
     <Shell track="selfpay">
-      <h1 className="text-2xl font-bold mb-2" style={{ color: '#F5F5F7' }}>
+      <h1 className="text-2xl font-bold mb-6" style={{ color: '#F5F5F7' }}>
         Create your account
       </h1>
-      <p className="mb-8 text-sm" style={{ color: '#A1A1AA' }}>
-        Set up your Masterschool account on the self-pay track to continue enrollment.
-      </p>
-      <Button
-        className="w-full font-semibold text-base py-6"
-        style={{ background: '#D7FF3A', color: '#0B0B0C' }}
+
+      <div className="space-y-3 mb-6">
+        {['Full name', 'Email address', 'Password'].map((label) => (
+          <div
+            key={label}
+            className="rounded-xl px-4 py-3"
+            style={{ background: '#13141A', border: '1px solid #2E3035' }}
+          >
+            <p className="text-xs mb-0.5" style={{ color: '#9EA3AE' }}>
+              {label}
+            </p>
+            <div className="h-4 rounded" style={{ background: '#2E3035', width: '55%' }} />
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="w-full rounded-full py-4 font-semibold text-sm"
+        style={{ background: '#FFFFFF', color: '#13141A' }}
         onClick={() => router.push('/program-selection?track=selfpay')}
       >
         Create account
-      </Button>
+      </button>
       <button
-        className="mt-4 w-full text-sm"
-        style={{ color: '#A1A1AA' }}
+        className="mt-3 w-full text-xs"
+        style={{ color: '#9EA3AE' }}
         onClick={() => router.back()}
       >
         ← Back
