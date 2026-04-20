@@ -9,12 +9,12 @@ const planDetails = {
   pro: {
     name: 'Maestro Pro',
     tagline: 'The complete path to a bachelor\'s degree',
-    features: ['Accredited BS degree', 'AI tutor access', 'Complimentary laptop', 'Priority career support', 'Alumni network'],
+    features: ['Accredited degree', 'AI tutor access', 'Complimentary laptop', 'Priority career support', 'Alumni network'],
   },
   core: {
     name: 'Maestro Core',
     tagline: 'The essentials to launch your career',
-    features: ['Accredited AAS degree', 'AI tutor access', 'Online & flexible', 'Career support'],
+    features: ['Accredited degree', 'AI tutor access', 'Online & flexible', 'Career support'],
   },
 };
 

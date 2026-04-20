@@ -79,8 +79,8 @@ export default function Eligibility() {
   // ── Partial: show plan options with pricing ──
   if (scenario === 'partial') {
     const plans: { id: Plan; name: string; price: string; sub: string }[] = [
-      { id: 'pro',  name: 'Maestro Pro',  price: '$5,600/yr', sub: 'Accredited BS degree' },
-      { id: 'core', name: 'Maestro Core', price: '$2,000/yr', sub: 'Accredited AAS degree' },
+      { id: 'pro',  name: 'Maestro Pro',  price: '$5,600/yr', sub: 'Degree + laptop + career support' },
+      { id: 'core', name: 'Maestro Core', price: '$2,000/yr', sub: 'Degree + AI tutor' },
     ];
 
     return (
