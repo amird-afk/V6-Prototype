@@ -4,24 +4,31 @@ import { useRouter } from 'next/navigation';
 import Shell from '@/components/Shell';
 import { Button } from '@/components/ui/button';
 
-export default function Home() {
+export default function CareerAdvisor() {
   const router = useRouter();
 
   return (
     <Shell>
       <h1 className="text-2xl font-bold mb-2" style={{ color: '#F5F5F7' }}>
-        Welcome to Masterschool
+        Meet your Career Advisor
       </h1>
       <p className="mb-8 text-sm" style={{ color: '#A1A1AA' }}>
-        Begin your enrollment journey in minutes.
+        Your dedicated advisor will guide you through the entire enrollment process.
       </p>
       <Button
         className="w-full font-semibold text-base py-6"
         style={{ background: '#D7FF3A', color: '#0B0B0C' }}
-        onClick={() => router.push('/career-advisor')}
+        onClick={() => router.push('/apply-scholarship')}
       >
-        Start
+        Continue
       </Button>
+      <button
+        className="mt-4 w-full text-sm"
+        style={{ color: '#A1A1AA' }}
+        onClick={() => router.back()}
+      >
+        ← Back
+      </button>
     </Shell>
   );
 }
