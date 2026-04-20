@@ -11,8 +11,9 @@ export default function ScholarshipAgreement() {
 
   const isSelfpay = tier.startsWith('selfpay');
   const isPartial = tier.startsWith('partial');
-  const label = isSelfpay ? 'Enrollment' : isPartial ? 'Partial Scholarship' : 'Pro Scholarship';
-  const track = isSelfpay ? 'selfpay' : 'scholarship';
+  const planName = tier.includes('core') ? 'Core' : 'Pro';
+  const label = isSelfpay ? 'Enrollment' : isPartial ? `Partial Scholarship · ${planName}` : `${planName} Scholarship`;
+  const track = isSelfpay ? 'selfpay' : isPartial ? 'partial' : 'scholarship';
 
   return (
     <Shell track={track}>
