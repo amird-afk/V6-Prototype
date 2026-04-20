@@ -7,10 +7,9 @@ import { Check } from 'lucide-react';
 import type { Track } from '@/lib/flow';
 
 const docs = [
-  'Program enrollment form',
-  'Technology use policy',
-  'Student code of conduct',
-  'Financial aid disclosure',
+  'Enrollment agreement',
+  'Terms of service',
+  'Privacy notice',
 ];
 
 export default function EnrollmentDocuments() {

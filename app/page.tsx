@@ -16,7 +16,7 @@ export default function Home() {
           <span className="text-2xl font-black" style={{ color: '#D7FF3A' }}>M</span>
         </div>
         <h1 className="text-2xl font-bold mb-2" style={{ color: '#F5F5F7' }}>
-          Welcome to Masterschool
+          Welcome to Maestro
         </h1>
         <p className="text-sm mb-8" style={{ color: '#9EA3AE' }}>
           Start your enrollment in minutes

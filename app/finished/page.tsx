@@ -29,8 +29,8 @@ export default function Finished() {
         </h1>
         <p className="text-sm mb-8" style={{ color: '#9EA3AE' }}>
           {track === 'selfpay'
-            ? 'Payment confirmed. Welcome to Masterschool.'
-            : 'Scholarship confirmed. Welcome to Masterschool.'}
+            ? 'Payment confirmed. Welcome to Maestro.'
+            : 'Scholarship confirmed. Welcome to Maestro.'}
         </p>
         <button
           className="w-full rounded-full py-4 font-semibold text-sm"

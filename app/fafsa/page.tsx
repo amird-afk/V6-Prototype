@@ -14,7 +14,7 @@ export default function FAFSA() {
       </h1>
 
       <p className="text-sm mb-2" style={{ color: '#9EA3AE' }}>
-        Submit the FAFSA for the <strong style={{ color: '#F5F5F7' }}>2026/27</strong> award year and include Masterschool&apos;s school code.
+        Submit the FAFSA for the <strong style={{ color: '#F5F5F7' }}>2026/27</strong> award year and include Maestro&apos;s school code.
       </p>
 
       <div className="rounded-xl px-4 py-3 flex items-center justify-between mb-5"
