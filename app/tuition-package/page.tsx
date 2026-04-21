@@ -6,71 +6,85 @@ import Shell from '@/components/Shell';
 import { BadgeCheck } from 'lucide-react';
 import type { Plan } from '@/lib/flow';
 
-// Tuition data per scenario × plan
-const packages = {
-  // Full scholarship (tier=pro → Pro plan, tier=core → Core plan, both $0)
+interface PkgRow { label: string; value: string; color: string }
+interface Pkg {
+  label: string;
+  programCost: string;
+  rows: PkgRow[];
+  yourCost: string;
+  yourCostSub?: string;
+  note: string;
+}
+
+const packages: Record<string, Pkg> = {
   pro: {
     label: 'Pro Scholarship',
-    plan: 'Pro plan',
     programCost: '$29,900',
-    scholarship: '− $29,900',
+    rows: [
+      { label: 'Scholarship & grants', value: '− $29,900', color: '#34D399' },
+    ],
     yourCost: '$0',
     note: 'Full tuition covered. ISA repayment terms apply after graduation.',
   },
   core: {
     label: 'Core Scholarship',
-    plan: 'Core plan',
     programCost: '$29,900',
-    scholarship: '− $29,900',
+    rows: [
+      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
+      { label: 'Scholarship & grants', value: '− $22,776', color: '#34D399' },
+    ],
     yourCost: '$0',
     note: 'Full tuition covered. ISA repayment terms apply after graduation.',
   },
-  // Partial scholarship — student chooses plan
+  'partial-pro': {
+    label: 'Partial Scholarship · Pro',
+    programCost: '$29,900',
+    rows: [
+      { label: 'Scholarship & grants', value: '− $24,300', color: '#34D399' },
+    ],
+    yourCost: '$5,600',
+    note: 'Billed annually before each academic year.',
+  },
   'partial-core': {
     label: 'Partial Scholarship · Core',
-    plan: 'Core plan',
     programCost: '$29,900',
-    scholarship: '− $27,900',
+    rows: [
+      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
+      { label: 'Scholarship & grants', value: '− $20,776', color: '#34D399' },
+    ],
     yourCost: '$2,000',
     note: 'One-time payment before your first term.',
   },
-  'partial-pro': {
-    label: 'Partial Scholarship · Pro',
-    plan: 'Pro plan',
-    programCost: '$29,900',
-    scholarship: '− $24,300',
-    yourCost: '$5,600 / year',
-    note: 'Billed annually before each academic year.',
-  },
-  // Self-pay — student chooses plan
-  'selfpay-core': {
-    label: 'Core plan · Self-pay',
-    plan: 'Core plan',
-    programCost: '$29,900',
-    scholarship: '— ',
-    yourCost: '$949 / month',
-    note: 'Billed monthly. Cancel or pause anytime.',
-  },
   'selfpay-pro': {
     label: 'Pro plan · Self-pay',
-    plan: 'Pro plan',
     programCost: '$29,900',
-    scholarship: '—',
-    yourCost: '$1,249 / month',
+    rows: [],
+    yourCost: '$29,900',
+    yourCostSub: '$1,249 / month × 24 months',
     note: 'Billed monthly. Includes laptop from term 2.',
+  },
+  'selfpay-core': {
+    label: 'Core plan · Self-pay',
+    programCost: '$29,900',
+    rows: [
+      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
+    ],
+    yourCost: '$22,776',
+    yourCostSub: '$949 / month × 24 months',
+    note: 'Billed monthly. Cancel or pause anytime.',
   },
 };
 
 export default function TuitionPackage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tier = searchParams.get('tier') ?? 'pro';  // 'pro', 'core', 'partial', 'selfpay'
+  const tier = searchParams.get('tier') ?? 'pro';
 
   const isChoice = tier === 'partial' || tier === 'selfpay';
   const [chosenPlan, setChosenPlan] = useState<Plan>('pro');
 
   const pkgKey = isChoice ? `${tier}-${chosenPlan}` : tier;
-  const pkg = packages[pkgKey as keyof typeof packages] ?? packages.pro;
+  const pkg = packages[pkgKey] ?? packages.pro;
   const nextTier = isChoice ? `${tier}-${chosenPlan}` : tier;
   const track = tier.startsWith('selfpay') ? 'selfpay' : tier.startsWith('partial') ? 'partial' : 'scholarship';
 
@@ -90,7 +104,6 @@ export default function TuitionPackage() {
         Estimated coverage based on your information:
       </p>
 
-      {/* Plan selector for partial / self-pay */}
       {isChoice && (
         <div className="grid grid-cols-2 gap-2 mb-4">
           {(['core', 'pro'] as Plan[]).map((p) => (
@@ -106,20 +119,26 @@ export default function TuitionPackage() {
         </div>
       )}
 
-      {/* Breakdown table */}
       <div className="rounded-2xl overflow-hidden mb-4"
         style={{ background: '#13141A', border: '1px solid #2E3035' }}>
         <div className="flex justify-between px-4 py-3 border-b" style={{ borderColor: '#2E3035' }}>
           <span className="text-sm" style={{ color: '#9EA3AE' }}>Full program cost</span>
           <span className="text-sm" style={{ color: '#F5F5F7' }}>{pkg.programCost}</span>
         </div>
-        <div className="flex justify-between px-4 py-3 border-b" style={{ borderColor: '#2E3035' }}>
-          <span className="text-sm" style={{ color: '#9EA3AE' }}>Scholarship &amp; grants</span>
-          <span className="text-sm" style={{ color: '#34D399' }}>{pkg.scholarship}</span>
-        </div>
-        <div className="flex justify-between px-4 py-3">
+        {pkg.rows.map((row) => (
+          <div key={row.label} className="flex justify-between px-4 py-3 border-b" style={{ borderColor: '#2E3035' }}>
+            <span className="text-sm" style={{ color: '#9EA3AE' }}>{row.label}</span>
+            <span className="text-sm font-medium" style={{ color: row.color }}>{row.value}</span>
+          </div>
+        ))}
+        <div className="flex justify-between items-center px-4 py-3">
           <span className="text-sm font-bold" style={{ color: '#F5F5F7' }}>Your cost</span>
-          <span className="text-sm font-bold" style={{ color: '#F5F5F7' }}>{pkg.yourCost}</span>
+          <div className="text-right">
+            <span className="text-sm font-bold" style={{ color: '#F5F5F7' }}>{pkg.yourCost}</span>
+            {pkg.yourCostSub && (
+              <p className="text-[11px] mt-0.5" style={{ color: '#9EA3AE' }}>{pkg.yourCostSub}</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -130,6 +149,8 @@ export default function TuitionPackage() {
         onClick={() => {
           if (track === 'partial') {
             router.push(`/enrollment-documents?track=partial`);
+          } else if (track === 'selfpay') {
+            router.push(`/enrollment-documents?track=selfpay`);
           } else {
             router.push(`/scholarship-agreement?tier=${nextTier}`);
           }
