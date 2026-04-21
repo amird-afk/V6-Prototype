@@ -1,14 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Shell from '@/components/Shell';
 import { ExternalLink } from 'lucide-react';
+import type { Track } from '@/lib/flow';
 
 export default function FAFSA() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const track = (searchParams.get('track') ?? 'scholarship') as Track;
 
   return (
-    <Shell track="scholarship">
+    <Shell track={track}>
       <h1 className="text-2xl font-bold mb-4" style={{ color: '#F5F5F7' }}>
         Submit your FAFSA
       </h1>
@@ -37,7 +40,7 @@ export default function FAFSA() {
 
       <button className="w-full rounded-full py-4 font-semibold text-sm"
         style={{ background: '#2E3035', color: '#F5F5F7' }}
-        onClick={() => router.push('/stripe-poe?track=scholarship')}>
+        onClick={() => router.push(`/stripe-poe?track=${track}`)}>
         I&apos;ve completed my FAFSA
       </button>
 
