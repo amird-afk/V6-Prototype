@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import StepBadge from './StepBadge';
 import FlowModal from './FlowModal';
-import DemoBar from './DemoBar';
 import type { Track } from '@/lib/flow';
 
 interface ShellProps {
@@ -41,7 +40,6 @@ export default function Shell({ children, track }: ShellProps) {
       </main>
 
       {modalId && <FlowModal modalId={modalId} />}
-      <DemoBar />
     </div>
   );
 }

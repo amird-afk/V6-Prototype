@@ -54,12 +54,12 @@ const scholarshipSteps: Record<string, number> = {
   '/enrollment-documents': 12, '/finished': 13,
 };
 
-// Partial (13 steps)
+// Partial (13 steps — no scholarship-agreement)
 const partialSteps: Record<string, number> = {
   '/pql': 1, '/eligibility': 2, '/signup-pql': 3, '/program-selection': 4,
   '/fafsa': 5, '/stripe-poe': 6, '/diploma-upload': 7, '/q-verification': 8,
-  '/plan-selection': 9, '/tuition-package': 10, '/scholarship-agreement': 11,
-  '/enrollment-documents': 12, '/pay-flow': 13, '/finished': 14,
+  '/plan-selection': 9, '/tuition-package': 10,
+  '/enrollment-documents': 11, '/pay-flow': 12, '/finished': 13,
 };
 
 // Self-pay (9 steps)
@@ -72,7 +72,7 @@ const selfpaySteps: Record<string, number> = {
 export function getStepInfo(pathname: string, track: Track | null) {
   const base = pathname.split('?')[0];
   if (track === 'selfpay') return { step: selfpaySteps[base] ?? 0, total: 9, trackLabel: 'Self-pay' };
-  if (track === 'partial') return { step: partialSteps[base] ?? 0, total: 14, trackLabel: 'Partial scholarship' };
+  if (track === 'partial') return { step: partialSteps[base] ?? 0, total: 13, trackLabel: 'Partial scholarship' };
   if (track === 'scholarship') return { step: scholarshipSteps[base] ?? 0, total: 13, trackLabel: 'Full scholarship' };
   const pre: Record<string, number> = { '/': 1, '/career-advisor': 2, '/apply-scholarship': 3 };
   return { step: pre[base] ?? 0, total: 3, trackLabel: 'Getting started' };

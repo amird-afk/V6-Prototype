@@ -72,10 +72,10 @@ export default function TuitionPackage() {
   const pkgKey = isChoice ? `${tier}-${chosenPlan}` : tier;
   const pkg = packages[pkgKey as keyof typeof packages] ?? packages.pro;
   const nextTier = isChoice ? `${tier}-${chosenPlan}` : tier;
-  const track = tier === 'selfpay' || tier.startsWith('selfpay') ? 'selfpay' : 'scholarship';
+  const track = tier.startsWith('selfpay') ? 'selfpay' : tier.startsWith('partial') ? 'partial' : 'scholarship';
 
   return (
-    <Shell track={track === 'selfpay' ? 'selfpay' : 'scholarship'}>
+    <Shell track={track}>
       <div className="flex justify-center mb-4">
         <div className="w-14 h-14 rounded-full flex items-center justify-center"
           style={{ background: '#1A2E22' }}>
@@ -127,7 +127,13 @@ export default function TuitionPackage() {
 
       <button className="w-full rounded-full py-4 font-semibold text-sm"
         style={{ background: '#FFFFFF', color: '#13141A' }}
-        onClick={() => router.push(`/scholarship-agreement?tier=${nextTier}`)}>
+        onClick={() => {
+          if (track === 'partial') {
+            router.push(`/enrollment-documents?track=partial`);
+          } else {
+            router.push(`/scholarship-agreement?tier=${nextTier}`);
+          }
+        }}>
         Secure your enrollment
       </button>
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Shell from '@/components/Shell';
+import { useFlow } from '@/components/FlowProvider';
 import { Check } from 'lucide-react';
 import type { Track } from '@/lib/flow';
 
@@ -15,6 +16,7 @@ const docs = [
 export default function EnrollmentDocuments() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { plan } = useFlow();
   const track = (searchParams.get('track') ?? 'scholarship') as Track;
   const [signed, setSigned] = useState<Set<number>>(new Set());
 
@@ -28,7 +30,7 @@ export default function EnrollmentDocuments() {
 
   function handleContinue() {
     if (track === 'selfpay' || track === 'partial') {
-      router.push('/pay-flow');
+      router.push(`/pay-flow?track=${track}&plan=${plan}`);
     } else {
       router.push('/finished?track=scholarship');
     }
