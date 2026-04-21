@@ -53,7 +53,7 @@ export default function PlanSelection() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!resolved) return null;
+  if (!resolved) return <div className="min-h-screen" style={{ background: '#13141A' }} />;
 
   const details = planDetails[plan];
   const price = planPrice(plan, track);

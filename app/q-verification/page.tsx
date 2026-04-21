@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import Shell from '@/components/Shell';
+import { useFlow } from '@/components/FlowProvider';
 import { nextFromQ } from '@/lib/flow';
 import type { Track } from '@/lib/flow';
 import { Loader2 } from 'lucide-react';
@@ -9,10 +10,16 @@ import { Loader2 } from 'lucide-react';
 export default function QVerification() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { plan } = useFlow();
   const track = (searchParams.get('track') ?? 'scholarship') as Track;
 
   function handleContinue() {
-    router.push(nextFromQ(track));
+    if (track === 'partial') {
+      // Skip plan-selection for partial — plan was chosen at eligibility
+      router.push(`/tuition-package?tier=partial-${plan}&track=partial`);
+    } else {
+      router.push(nextFromQ(track));
+    }
   }
 
   return (

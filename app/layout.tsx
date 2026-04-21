@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col" style={{ background: '#0B0B0C' }}>
+      <body suppressHydrationWarning className="min-h-full flex flex-col" style={{ background: '#0B0B0C' }}>
         <Suspense>
           <FlowProvider>{children}</FlowProvider>
         </Suspense>
