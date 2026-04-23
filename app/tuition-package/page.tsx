@@ -24,20 +24,16 @@ const packages: Record<string, Pkg> = {
   core: {
     planBadge: 'Maestro Core',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
-      { label: 'Scholarship & grants', value: '− $22,776', color: '#34D399' },
+      { label: 'Program cost', value: '$22,776', color: '#F5F5F7' },
+      { label: 'Institutional subsidy', value: '− $22,776', color: '#34D399' },
     ],
     yourCost: '$0',
   },
   pro: {
     planBadge: 'Maestro Pro',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Career Accelerator Bundle', value: '+ $7,200', color: '#F5F5F7' },
-      { label: 'Package value', value: '$37,100', color: '#F5F5F7', bold: true },
-      { label: 'Scholarship & grants', value: '− $29,900', color: '#34D399' },
-      { label: 'Career Bundle (included)', value: '− $7,200', color: '#34D399' },
+      { label: 'Program cost', value: '$29,900', color: '#F5F5F7' },
+      { label: 'Institutional subsidy', value: '− $29,900', color: '#34D399' },
     ],
     yourCost: '$0',
   },
@@ -45,8 +41,8 @@ const packages: Record<string, Pkg> = {
   'partial-core': {
     planBadge: 'Maestro Core',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Scholarship & grants', value: '− $27,900', color: '#34D399' },
+      { label: 'Program cost', value: '$22,776', color: '#F5F5F7' },
+      { label: 'Institutional subsidy', value: '− $20,776', color: '#34D399' },
     ],
     yourCost: '$2,000',
     note: 'One-time payment before your first term.',
@@ -54,8 +50,8 @@ const packages: Record<string, Pkg> = {
   'partial-pro': {
     planBadge: 'Maestro Pro',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Scholarship & grants', value: '− $24,300', color: '#34D399' },
+      { label: 'Program cost', value: '$29,900', color: '#F5F5F7' },
+      { label: 'Institutional subsidy', value: '− $24,300', color: '#34D399' },
     ],
     yourCost: '$5,600',
     note: 'Billed annually before each academic year.',
@@ -64,8 +60,7 @@ const packages: Record<string, Pkg> = {
   'selfpay-core': {
     planBadge: 'Maestro Core',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
+      { label: 'Program cost', value: '$22,776', color: '#F5F5F7' },
     ],
     yourCost: '$22,776',
     paymentPlan: '$949 / month × 24 months',
@@ -73,8 +68,7 @@ const packages: Record<string, Pkg> = {
   'selfpay-pro': {
     planBadge: 'Maestro Pro',
     rows: [
-      { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Includes Career Accelerator Bundle', value: '✓', color: '#34D399' },
+      { label: 'Program cost', value: '$29,900', color: '#F5F5F7' },
     ],
     yourCost: '$29,900',
     paymentPlan: '$1,249 / month × 24 months',
