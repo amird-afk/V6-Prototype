@@ -46,8 +46,7 @@ const packages: Record<string, Pkg> = {
     planBadge: 'Maestro Core',
     rows: [
       { label: 'Full program cost', value: '$29,900', color: '#F5F5F7' },
-      { label: 'Institution contribution', value: '− $7,124', color: '#60A5FA' },
-      { label: 'Scholarship & grants', value: '− $20,776', color: '#34D399' },
+      { label: 'Scholarship & grants', value: '− $27,900', color: '#34D399' },
     ],
     yourCost: '$2,000',
     note: 'One-time payment before your first term.',

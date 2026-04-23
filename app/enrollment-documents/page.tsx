@@ -9,8 +9,8 @@ import type { Track } from '@/lib/flow';
 
 const docs = [
   'Enrollment agreement',
-  'Terms of service',
-  'Privacy notice',
+  'Terms and Conditions',
+  'Texas forms',
 ];
 
 export default function EnrollmentDocuments() {
