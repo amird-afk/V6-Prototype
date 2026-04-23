@@ -27,7 +27,7 @@ const incomeOptions = [
 type Step = 'edu' | 'disqualify' | 'loans' | 'years' | 'income';
 
 const progressSteps: Record<Step, number> = {
-  edu: 1, loans: 2, years: 3, income: 4, disqualify: 1,
+  edu: 1, years: 2, income: 3, loans: 4, disqualify: 1,
 };
 const TOTAL_STEPS = 4;
 
@@ -45,12 +45,12 @@ export default function PQL() {
     if (edu === "I did not complete high school") {
       setStep('disqualify');
     } else {
-      setStep('loans');
+      setStep('years');
     }
   }
 
-  function handleIncomeContinue() {
-    if (!income) return;
+  function handleLoansNext() {
+    if (!loans) return;
     const scenario = scenarioFromIncome(income);
     setScenario(scenario);
     router.push('/eligibility');
@@ -160,28 +160,7 @@ export default function PQL() {
         </>
       )}
 
-      {/* Step 2 — Student loans */}
-      {step === 'loans' && (
-        <>
-          <h1 className="text-xl font-bold mb-5" style={{ color: '#F5F5F7' }}>
-            Are you in default on any student loans?
-          </h1>
-          <RadioList options={['Yes', 'No']} selected={loans} onSelect={setLoans} />
-          <button
-            onClick={() => { if (loans) setStep('years'); }}
-            disabled={!loans}
-            className="w-full rounded-full py-4 font-semibold text-sm disabled:opacity-40"
-            style={{ background: '#FFFFFF', color: '#13141A' }}
-          >
-            Next
-          </button>
-          <button onClick={() => setStep('edu')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
-            ← Back
-          </button>
-        </>
-      )}
-
-      {/* Step 3 — Years in HE */}
+      {/* Step 2 — Years in HE */}
       {step === 'years' && (
         <>
           <h1 className="text-xl font-bold mb-5" style={{ color: '#F5F5F7' }}>
@@ -196,13 +175,13 @@ export default function PQL() {
           >
             Next
           </button>
-          <button onClick={() => setStep('loans')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
+          <button onClick={() => setStep('edu')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
             ← Back
           </button>
         </>
       )}
 
-      {/* Step 4 — Income */}
+      {/* Step 3 — Income */}
       {step === 'income' && (
         <>
           <h1 className="text-xl font-bold mb-5" style={{ color: '#F5F5F7' }}>
@@ -232,14 +211,35 @@ export default function PQL() {
             ))}
           </div>
           <button
-            onClick={handleIncomeContinue}
+            onClick={() => { if (income) setStep('loans'); }}
             disabled={!income}
+            className="w-full rounded-full py-4 font-semibold text-sm disabled:opacity-40"
+            style={{ background: '#FFFFFF', color: '#13141A' }}
+          >
+            Next
+          </button>
+          <button onClick={() => setStep('years')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
+            ← Back
+          </button>
+        </>
+      )}
+
+      {/* Step 4 — Student loans */}
+      {step === 'loans' && (
+        <>
+          <h1 className="text-xl font-bold mb-5" style={{ color: '#F5F5F7' }}>
+            Are you in default on any student loans?
+          </h1>
+          <RadioList options={['Yes', 'No']} selected={loans} onSelect={setLoans} />
+          <button
+            onClick={handleLoansNext}
+            disabled={!loans}
             className="w-full rounded-full py-4 font-semibold text-sm disabled:opacity-40"
             style={{ background: '#FFFFFF', color: '#13141A' }}
           >
             Continue
           </button>
-          <button onClick={() => setStep('years')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
+          <button onClick={() => setStep('income')} className="mt-3 w-full text-xs" style={{ color: '#9EA3AE' }}>
             ← Back
           </button>
         </>
