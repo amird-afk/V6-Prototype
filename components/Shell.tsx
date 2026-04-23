@@ -36,13 +36,21 @@ export default function Shell({ children, track }: ShellProps) {
             maestro
           </span>
         </div>
-        <button
-          onClick={handleRestart}
-          className="text-[11px] px-3 py-1.5 rounded-full"
-          style={{ background: '#2E3035', color: '#9EA3AE' }}
-        >
-          ↩ Restart
-        </button>
+        <div className="flex items-center gap-2">
+          {track && (
+            <span className="text-[10px] px-2 py-1 rounded-full font-medium"
+              style={{ background: '#13141A', color: '#D7FF3A', border: '1px solid #2E3035' }}>
+              {track === 'scholarship' ? 'Full scholarship' : track === 'partial' ? 'Partial' : 'Self-pay'}
+            </span>
+          )}
+          <button
+            onClick={handleRestart}
+            className="text-[11px] px-3 py-1.5 rounded-full"
+            style={{ background: '#2E3035', color: '#9EA3AE' }}
+          >
+            ↩ Restart
+          </button>
+        </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center px-4 py-8">
